@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CPP00 Ex01 - PhoneBook.cpp Explained</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #eee;
+            line-height: 1.7;
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #00d4ff;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #888;
+            margin-bottom: 40px;
+            font-size: 1.1em;
+        }
+
+        h2 {
+            color: #ff6b6b;
+            margin: 40px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ff6b6b;
+        }
+
+        h3 {
+            color: #ffd93d;
+            margin: 25px 0 15px 0;
+        }
+
+        .code-block {
+            background: #0d1117;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            overflow-x: auto;
+            border-left: 4px solid #00d4ff;
+        }
+
+        .code-block code {
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 14px;
+            color: #c9d1d9;
+        }
+
+        .keyword { color: #ff7b72; }
+        .type { color: #79c0ff; }
+        .string { color: #a5d6ff; }
+        .comment { color: #8b949e; font-style: italic; }
+        .function { color: #d2a8ff; }
+        .number { color: #ffd93d; }
+
+        .explanation {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #00d4ff;
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, #5a3a1e 0%, #87592d 100%);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #ffd93d;
+        }
+
+        .visual-example {
+            background: #0d1117;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            font-family: 'Consolas', monospace;
+            border: 2px dashed #4a5568;
+        }
+
+        .arrow {
+            color: #00d4ff;
+            font-weight: bold;
+        }
+
+        ul {
+            margin: 10px 0 10px 30px;
+        }
+
+        li {
+            margin: 8px 0;
+        }
+
+        .line-number {
+            color: #6e7681;
+            user-select: none;
+            margin-right: 15px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        th, td {
+            border: 1px solid #4a5568;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background: #2d3748;
+            color: #00d4ff;
+        }
+
+        tr:nth-child(even) {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .toc {
+            background: rgba(0, 212, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 40px;
+        }
+
+        .toc h3 {
+            margin-top: 0;
+        }
+
+        .toc a {
+            color: #00d4ff;
+            text-decoration: none;
+        }
+
+        .toc a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>PhoneBook.cpp Explained</h1>
+        <p class="subtitle">CPP00 Exercise 01 - Line by Line Explanation</p>
+
+        <div class="toc">
+            <h3>Table of Contents</h3>
+            <ul>
+                <li><a href="#includes">1. Includes</a></li>
+                <li><a href="#constructor">2. Constructor</a></li>
+                <li><a href="#addcontact">3. addContact() Function</a></li>
+                <li><a href="#searchcontact">4. searchContact() Function</a></li>
+                <li><a href="#truncation">5. The Truncation Logic (Important!)</a></li>
+                <li><a href="#validation">6. Index Validation</a></li>
+            </ul>
+        </div>
+
+        <!-- INCLUDES SECTION -->
+        <h2 id="includes">1. Includes (Lines 1-3)</h2>
+
+        <div class="code-block">
+            <code>
+<span class="line-number">1</span><span class="keyword">#include</span> <span class="string">"PhoneBook.hpp"</span><br>
+<span class="line-number">2</span><span class="keyword">#include</span> <span class="string">&lt;iostream&gt;</span><br>
+<span class="line-number">3</span><span class="keyword">#include</span> <span class="string">&lt;iomanip&gt;</span>
+            </code>
+        </div>
+
+        <div class="explanation">
+            <table>
+                <tr>
+                    <th>Include</th>
+                    <th>What it gives us</th>
+                </tr>
+                <tr>
+                    <td><code>"PhoneBook.hpp"</code></td>
+                    <td>Our PhoneBook class definition (the blueprint)</td>
+                </tr>
+                <tr>
+                    <td><code>&lt;iostream&gt;</code></td>
+                    <td><code>std::cout</code>, <code>std::cin</code>, <code>std::endl</code></td>
+                </tr>
+                <tr>
+                    <td><code>&lt;iomanip&gt;</code></td>
+                    <td><code>std::setw()</code> - sets column width for output</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- CONSTRUCTOR SECTION -->
+        <h2 id="constructor">2. Constructor (Lines 5-9)</h2>
+
+        <div class="code-block">
+            <code>
+<span class="line-number">5</span><span class="type">PhoneBook</span>::<span class="function">PhoneBook</span>()<br>
+<span class="line-number">6</span>{<br>
+<span class="line-number">7</span>    contactCount = <span class="number">0</span>;    <span class="comment">// We start with 0 contacts</span><br>
+<span class="line-number">8</span>    oldestIndex = <span class="number">0</span>;     <span class="comment">// First contact goes at position 0</span><br>
+<span class="line-number">9</span>}
+            </code>
+        </div>
+
+        <div class="explanation">
+            <p>The constructor runs automatically when you create a PhoneBook object:</p>
+            <ul>
+                <li><strong>contactCount = 0</strong> : No contacts stored yet</li>
+                <li><strong>oldestIndex = 0</strong> : The next contact will be saved at position 0</li>
+            </ul>
+        </div>
+
+        <!-- ADDCONTACT SECTION -->
+        <h2 id="addcontact">3. addContact() Function (Lines 11-66)</h2>
+
+        <h3>Starting the function</h3>
+        <div class="code-block">
+            <code>
+<span class="line-number">11</span><span class="keyword">void</span> <span class="type">PhoneBook</span>::<span class="function">addContact</span>()<br>
+<span class="line-number">12</span>{<br>
+<span class="line-number">13</span>    <span class="type">std::string</span> input;<br>
+<span class="line-number">14</span>    <span class="type">int</span> index = oldestIndex;   <span class="comment">// Where we'll store this contact</span>
+            </code>
+        </div>
+
+        <div class="explanation">
+            <ul>
+                <li><strong>input</strong> : A temporary variable to hold what the user types</li>
+                <li><strong>index</strong> : We save oldestIndex so we know where to put this contact</li>
+            </ul>
+        </div>
+
+        <h3>Getting each field (example: first name)</h3>
+        <div class="code-block">
+            <code>
+<span class="line-number">16</span>    <span class="type">std::cout</span> << <span class="string">"Enter first name: "</span>;<br>
+<span class="line-number">17</span>    <span class="type">std::getline</span>(<span class="type">std::cin</span>, input);   <span class="comment">// Read entire line</span><br>
+<span class="line-number">18</span>    <span class="keyword">if</span> (input.<span class="function">empty</span>())<br>
+<span class="line-number">19</span>    {<br>
+<span class="line-number">20</span>        <span class="type">std::cout</span> << <span class="string">"Field cannot be empty!"</span> << <span class="type">std::endl</span>;<br>
+<span class="line-number">21</span>        <span class="keyword">return</span>;   <span class="comment">// Stop here, don't add contact</span><br>
+<span class="line-number">22</span>    }<br>
+<span class="line-number">23</span>    contacts[index].<span class="function">setFirstName</span>(input);
+            </code>
+        </div>
+
+        <div class="explanation">
+            <table>
+                <tr>
+                    <th>Line</th>
+                    <th>What it does</th>
+                </tr>
+                <tr>
+                    <td>16</td>
+                    <td>Print prompt to screen (no newline, cursor stays on same line)</td>
+                </tr>
+                <tr>
+                    <td>17</td>
+                    <td><code>getline()</code> reads the ENTIRE line including spaces</td>
+                </tr>
+                <tr>
+                    <td>18</td>
+                    <td>Check if user just pressed Enter without typing anything</td>
+                </tr>
+                <tr>
+                    <td>21</td>
+                    <td><code>return</code> exits the function immediately - contact NOT saved</td>
+                </tr>
+                <tr>
+                    <td>23</td>
+                    <td>Save the input to the contact at position [index]</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="warning-box">
+            <strong>Note:</strong> Lines 25-59 repeat this SAME pattern for: last name, nickname, phone number, and darkest secret. The logic is identical!
+        </div>
+
+        <h3>The Circular Index Logic (Lines 63-65)</h3>
+        <div class="code-block">
+            <code>
+<span class="line-number">63</span>    oldestIndex = (oldestIndex + <span class="number">1</span>) % <span class="number">8</span>;<br>
+<span class="line-number">64</span>    <span class="keyword">if</span> (contactCount < <span class="number">8</span>)<br>
+<span class="line-number">65</span>        contactCount++;
+            </code>
+        </div>
+
+        <div class="highlight-box">
+            <h3>The % 8 Trick Explained</h3>
+            <p>The <code>%</code> is the modulo operator - it gives the remainder after division.</p>
+            <p>This makes the index "wrap around" from 7 back to 0:</p>
+        </div>
+
+        <div class="visual-example">
+oldestIndex = 0 <span class="arrow">→</span> (0 + 1) % 8 = <strong>1</strong><br>
+oldestIndex = 1 <span class="arrow">→</span> (1 + 1) % 8 = <strong>2</strong><br>
+oldestIndex = 2 <span class="arrow">→</span> (2 + 1) % 8 = <strong>3</strong><br>
+...<br>
+oldestIndex = 6 <span class="arrow">→</span> (6 + 1) % 8 = <strong>7</strong><br>
+oldestIndex = 7 <span class="arrow">→</span> (7 + 1) % 8 = <strong>0</strong>  <span class="arrow">← wraps back!</span>
+        </div>
+
+        <div class="explanation">
+            <p><strong>Line 64-65:</strong> We only increase contactCount until it reaches 8. After that, we're just overwriting old contacts, not adding new ones.</p>
+        </div>
+
+        <!-- SEARCHCONTACT SECTION -->
+        <h2 id="searchcontact">4. searchContact() Function (Lines 68-128)</h2>
+
+        <h3>Check if phonebook is empty</h3>
+        <div class="code-block">
+            <code>
+<span class="line-number">68</span><span class="keyword">void</span> <span class="type">PhoneBook</span>::<span class="function">searchContact</span>()<br>
+<span class="line-number">69</span>{<br>
+<span class="line-number">70</span>    <span class="keyword">if</span> (contactCount == <span class="number">0</span>)<br>
+<span class="line-number">71</span>    {<br>
+<span class="line-number">72</span>        <span class="type">std::cout</span> << <span class="string">"Phonebook is empty!"</span> << <span class="type">std::endl</span>;<br>
+<span class="line-number">73</span>        <span class="keyword">return</span>;<br>
+<span class="line-number">74</span>    }
+            </code>
+        </div>
+
+        <h3>Print table header (Lines 76-80)</h3>
+        <div class="code-block">
+            <code>
+<span class="line-number">77</span>    <span class="type">std::cout</span> << <span class="function">std::setw</span>(<span class="number">10</span>) << <span class="string">"Index"</span> << <span class="string">"|"</span>;<br>
+<span class="line-number">78</span>    <span class="type">std::cout</span> << <span class="function">std::setw</span>(<span class="number">10</span>) << <span class="string">"First Name"</span> << <span class="string">"|"</span>;<br>
+<span class="line-number">79</span>    <span class="type">std::cout</span> << <span class="function">std::setw</span>(<span class="number">10</span>) << <span class="string">"Last Name"</span> << <span class="string">"|"</span>;<br>
+<span class="line-number">80</span>    <span class="type">std::cout</span> << <span class="function">std::setw</span>(<span class="number">10</span>) << <span class="string">"Nickname"</span> << <span class="type">std::endl</span>;
+            </code>
+        </div>
+
+        <div class="highlight-box">
+            <h3>What does std::setw(10) do?</h3>
+            <p><code>std::setw(10)</code> means: "make the next output take exactly 10 characters, right-aligned"</p>
+        </div>
+
+        <div class="visual-example">
+Output looks like this:<br><br>
+<span style="color: #888;">|----10----|----10----|----10----|----10----|</span><br>
+     Index|First Name| Last Name|  Nickname<br>
+<span style="color: #888;">         ^         ^         ^         ^</span><br>
+<span style="color: #888;">   right-aligned (text pushed to the right)</span>
+        </div>
+
+        <!-- TRUNCATION SECTION -->
+        <h2 id="truncation">5. The Truncation Logic (Lines 83-101) - IMPORTANT!</h2>
+
+        <div class="code-block">
+            <code>
+<span class="line-number">83</span>    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i < contactCount; i++)<br>
+<span class="line-number">84</span>    {<br>
+<span class="line-number">85</span>        <span class="type">std::string</span> firstName = contacts[i].<span class="function">getFirstName</span>();<br>
+<span class="line-number">86</span>        <span class="type">std::string</span> lastName = contacts[i].<span class="function">getLastName</span>();<br>
+<span class="line-number">87</span>        <span class="type">std::string</span> nickname = contacts[i].<span class="function">getNickname</span>();<br>
+<span class="line-number">88</span><br>
+<span class="line-number">89</span>        <span class="comment">// Truncate if longer than 10 characters</span><br>
+<span class="line-number">90</span>        <span class="keyword">if</span> (firstName.<span class="function">length</span>() > <span class="number">10</span>)<br>
+<span class="line-number">91</span>            firstName = firstName.<span class="function">substr</span>(<span class="number">0</span>, <span class="number">9</span>) + <span class="string">"."</span>;<br>
+<span class="line-number">92</span>        <span class="keyword">if</span> (lastName.<span class="function">length</span>() > <span class="number">10</span>)<br>
+<span class="line-number">93</span>            lastName = lastName.<span class="function">substr</span>(<span class="number">0</span>, <span class="number">9</span>) + <span class="string">"."</span>;<br>
+<span class="line-number">94</span>        <span class="keyword">if</span> (nickname.<span class="function">length</span>() > <span class="number">10</span>)<br>
+<span class="line-number">95</span>            nickname = nickname.<span class="function">substr</span>(<span class="number">0</span>, <span class="number">9</span>) + <span class="string">"."</span>;
+            </code>
+        </div>
+
+        <div class="highlight-box">
+            <h3>How substr(0, 9) works</h3>
+            <p><code>substr(start_position, length)</code> extracts part of a string.</p>
+            <p><code>substr(0, 9)</code> = "take 9 characters starting at position 0"</p>
+        </div>
+
+        <div class="visual-example">
+Example: firstName = "Christopher" (11 characters)<br><br>
+
+Position:  0  1  2  3  4  5  6  7  8  9  10<br>
+Letter:    C  h  r  i  s  t  o  p  h  e  r<br>
+           |__________________________|<br>
+                  substr(0, 9)<br><br>
+
+substr(0, 9) = "Christop" (9 characters)<br><br>
+
+Then we add ".":<br>
+"Christop" + "." = "Christop." (10 characters) <span class="arrow">← fits perfectly!</span>
+        </div>
+
+        <div class="warning-box">
+            <h3>Why 9 + 1 dot = 10?</h3>
+            <ul>
+                <li>Each column must be exactly <strong>10 characters</strong> wide (PDF requirement)</li>
+                <li>If name is longer than 10, we must truncate</li>
+                <li>We keep <strong>9 characters</strong> + add <strong>1 dot</strong> = <strong>10 total</strong></li>
+                <li>The dot shows the user that text was cut off</li>
+            </ul>
+        </div>
+
+        <div class="visual-example">
+<strong>More examples:</strong><br><br>
+
+"Christopher" (11 chars) <span class="arrow">→</span> too long! <span class="arrow">→</span> "Christop." (10 chars)<br>
+"Alexandria"  (10 chars) <span class="arrow">→</span> exactly 10, no change needed<br>
+"John"        (4 chars)  <span class="arrow">→</span> fits fine, no change needed<br>
+"Bartholomew" (11 chars) <span class="arrow">→</span> too long! <span class="arrow">→</span> "Bartholom." (10 chars)
+        </div>
+
+        <h3>Printing the table rows (Lines 97-100)</h3>
+        <div class="code-block">
+            <code>
+<span class="line-number">97</span>        <span class="type">std::cout</span> << <span class="function">std::setw</span>(<span class="number">10</span>) << i << <span class="string">"|"</span>;<br>
+<span class="line-number">98</span>        <span class="type">std::cout</span> << <span class="function">std::setw</span>(<span class="number">10</span>) << firstName << <span class="string">"|"</span>;<br>
+<span class="line-number">99</span>        <span class="type">std::cout</span> << <span class="function">std::setw</span>(<span class="number">10</span>) << lastName << <span class="string">"|"</span>;<br>
+<span class="line-number">100</span>        <span class="type">std::cout</span> << <span class="function">std::setw</span>(<span class="number">10</span>) << nickname << <span class="type">std::endl</span>;
+            </code>
+        </div>
+
+        <div class="visual-example">
+<strong>Example output:</strong><br><br>
+     Index|First Name| Last Name|  Nickname<br>
+         0|      John|     Smith|    Johnny<br>
+         1|Christoph.|  Johnsons|     Chris<br>
+         2|      Jane|       Doe|      Jany
+        </div>
+
+        <!-- VALIDATION SECTION -->
+        <h2 id="validation">6. Index Validation (Lines 103-120)</h2>
+
+        <div class="code-block">
+            <code>
+<span class="line-number">104</span>    <span class="type">std::cout</span> << <span class="string">"Enter index: "</span>;<br>
+<span class="line-number">105</span>    <span class="type">std::string</span> input;<br>
+<span class="line-number">106</span>    <span class="function">std::getline</span>(<span class="type">std::cin</span>, input);<br>
+<span class="line-number">107</span><br>
+<span class="line-number">108</span>    <span class="comment">// Simple check: must be single digit 0-7</span><br>
+<span class="line-number">109</span>    <span class="keyword">if</span> (input.<span class="function">length</span>() != <span class="number">1</span> || input[<span class="number">0</span>] < <span class="string">'0'</span> || input[<span class="number">0</span>] > <span class="string">'7'</span>)<br>
+<span class="line-number">110</span>    {<br>
+<span class="line-number">111</span>        <span class="type">std::cout</span> << <span class="string">"Invalid index!"</span> << <span class="type">std::endl</span>;<br>
+<span class="line-number">112</span>        <span class="keyword">return</span>;<br>
+<span class="line-number">113</span>    }<br>
+<span class="line-number">114</span><br>
+<span class="line-number">115</span>    <span class="type">int</span> index = input[<span class="number">0</span>] - <span class="string">'0'</span>;
+            </code>
+        </div>
+
+        <div class="explanation">
+            <h3>Line 109 breakdown:</h3>
+            <table>
+                <tr>
+                    <th>Check</th>
+                    <th>What it catches</th>
+                </tr>
+                <tr>
+                    <td><code>input.length() != 1</code></td>
+                    <td>Rejects "12", "abc", "" (empty), etc.</td>
+                </tr>
+                <tr>
+                    <td><code>input[0] < '0'</code></td>
+                    <td>Rejects characters before '0' in ASCII (like '!' or '-')</td>
+                </tr>
+                <tr>
+                    <td><code>input[0] > '7'</code></td>
+                    <td>Rejects '8', '9', 'a', 'z', etc.</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="highlight-box">
+            <h3>The - '0' Trick (Line 115)</h3>
+            <p>This converts a character digit to its actual number value:</p>
+        </div>
+
+        <div class="visual-example">
+In ASCII:<br>
+'0' = 48<br>
+'1' = 49<br>
+'2' = 50<br>
+'3' = 51<br>
+...<br><br>
+
+So if user types '3':<br>
+'3' - '0' = 51 - 48 = <strong>3</strong> <span class="arrow">← the actual integer!</span><br><br>
+
+If user types '7':<br>
+'7' - '0' = 55 - 48 = <strong>7</strong>
+        </div>
+
+        <div class="code-block">
+            <code>
+<span class="line-number">116</span>    <span class="keyword">if</span> (index >= contactCount)<br>
+<span class="line-number">117</span>    {<br>
+<span class="line-number">118</span>        <span class="type">std::cout</span> << <span class="string">"Invalid index!"</span> << <span class="type">std::endl</span>;<br>
+<span class="line-number">119</span>        <span class="keyword">return</span>;<br>
+<span class="line-number">120</span>    }
+            </code>
+        </div>
+
+        <div class="explanation">
+            <p><strong>Why this check?</strong> If we only have 3 contacts (contactCount = 3), valid indexes are 0, 1, 2. Index 3 or higher would access empty/garbage data!</p>
+        </div>
+
+        <h3>Display full contact info (Lines 122-127)</h3>
+        <div class="code-block">
+            <code>
+<span class="line-number">122</span>    <span class="comment">// Display the contact - NO truncation here!</span><br>
+<span class="line-number">123</span>    <span class="type">std::cout</span> << <span class="string">"First Name: "</span> << contacts[index].<span class="function">getFirstName</span>() << <span class="type">std::endl</span>;<br>
+<span class="line-number">124</span>    <span class="type">std::cout</span> << <span class="string">"Last Name: "</span> << contacts[index].<span class="function">getLastName</span>() << <span class="type">std::endl</span>;<br>
+<span class="line-number">125</span>    <span class="type">std::cout</span> << <span class="string">"Nickname: "</span> << contacts[index].<span class="function">getNickname</span>() << <span class="type">std::endl</span>;<br>
+<span class="line-number">126</span>    <span class="type">std::cout</span> << <span class="string">"Phone Number: "</span> << contacts[index].<span class="function">getPhoneNumber</span>() << <span class="type">std::endl</span>;<br>
+<span class="line-number">127</span>    <span class="type">std::cout</span> << <span class="string">"Darkest Secret: "</span> << contacts[index].<span class="function">getDarkestSecret</span>() << <span class="type">std::endl</span>;
+            </code>
+        </div>
+
+        <div class="explanation">
+            <p>Here we show the <strong>full</strong> contact information - no truncation needed because we're not in a fixed-width table anymore!</p>
+        </div>
+
+        <div class="highlight-box" style="margin-top: 50px; text-align: center;">
+            <h3>Summary</h3>
+            <p>The key concepts in PhoneBook.cpp are:</p>
+            <ul style="text-align: left; display: inline-block;">
+                <li><strong>% 8</strong> - circular index that wraps from 7 back to 0</li>
+                <li><strong>std::setw(10)</strong> - makes columns exactly 10 chars wide</li>
+                <li><strong>substr(0, 9) + "."</strong> - truncates long text to fit in 10 chars</li>
+                <li><strong>- '0'</strong> - converts character '3' to integer 3</li>
+            </ul>
+        </div>
+
+    </div>
+</body>
+</html>
