@@ -3,7 +3,6 @@
 
 #include <string>
 
-// a non-empty structure used to prove serialize()/deserialize() round-trip correctly
 struct Data
 {
 	int			id;

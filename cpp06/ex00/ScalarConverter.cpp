@@ -59,7 +59,9 @@ ScalarConverter::~ScalarConverter() {}
 
 bool ScalarConverter::isCharLiteral(const std::string& literal)
 {
-	return (literal.size() == 3 && literal[0] == '\'' && literal[2] == '\'');
+	if (literal.size() == 3 && literal[0] == '\'' && literal[2] == '\'')
+		return (true);
+	return (literal.size() == 1 && !std::isdigit(static_cast<unsigned char>(literal[0])));
 }
 
 bool ScalarConverter::isIntLiteral(const std::string& literal)
@@ -152,7 +154,7 @@ void ScalarConverter::convert(const std::string& literal)
 {
 	if (isCharLiteral(literal))
 	{
-		printFromChar(literal[1]);
+		printFromChar(literal.size() == 3 ? literal[1] : literal[0]);
 		return ;
 	}
 	if (isIntLiteral(literal))
