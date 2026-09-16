@@ -13,8 +13,8 @@ class Span
         ~Span();
 
         void addNumber(int value);
-        int shortestSpan() const;
-        int longestSpan() const;
+        long long shortestSpan() const;
+        long long longestSpan() const;
 
         template <typename InputIterator>
         void addNumber(InputIterator first, InputIterator last)

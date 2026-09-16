@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <cstdlib>
+#include <climits>
 #include "Span.hpp"
 
 int main()
@@ -42,6 +43,11 @@ int main()
     bigSpan.addNumber(big.begin(), big.end());
     std::cout << "10000 numbers, shortest: " << bigSpan.shortestSpan() << std::endl;
     std::cout << "10000 numbers, longest: " << bigSpan.longestSpan() << std::endl;
+
+    Span extremes(2);
+    extremes.addNumber(INT_MAX);
+    extremes.addNumber(INT_MIN);
+    std::cout << "INT_MAX/INT_MIN span (no overflow): " << extremes.longestSpan() << std::endl;
 
     return (0);
 }
