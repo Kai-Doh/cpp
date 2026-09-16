@@ -49,5 +49,19 @@ int main()
     extremes.addNumber(INT_MIN);
     std::cout << "INT_MAX/INT_MIN span (no overflow): " << extremes.longestSpan() << std::endl;
 
+    Span duplicates(4);
+    duplicates.addNumber(7);
+    duplicates.addNumber(7);
+    duplicates.addNumber(7);
+    duplicates.addNumber(7);
+    std::cout << "all-duplicates shortest/longest: " << duplicates.shortestSpan()
+        << " / " << duplicates.longestSpan() << std::endl;
+
+    Span minimal(2);
+    minimal.addNumber(4);
+    minimal.addNumber(10);
+    std::cout << "exactly 2 numbers shortest/longest: " << minimal.shortestSpan()
+        << " / " << minimal.longestSpan() << std::endl;
+
     return (0);
 }

@@ -49,5 +49,16 @@ int main()
         std::cout << "error: " << e.what() << std::endl;
     }
 
+    std::vector<int> empty;
+    try
+    {
+        easyfind(empty, 0);
+        std::cout << "found in empty vector (unexpected)" << std::endl;
+    }
+    catch (const std::exception &e)
+    {
+        std::cout << "empty container: " << e.what() << std::endl;
+    }
+
     return (0);
 }
