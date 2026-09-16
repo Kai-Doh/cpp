@@ -2,21 +2,18 @@
 #include <string>
 #include "iter.hpp"
 
-// modifies its argument: needs a non-const reference, so array can't be const
 template <typename T>
 void doubleValue(T& value)
 {
 	value = value * 2;
 }
 
-// only reads its argument: works with either a const or non-const reference
 template <typename T>
 void printValue(T const& value)
 {
 	std::cout << value << " ";
 }
 
-// a small class to prove iter works with non-scalar types too
 class Awesome
 {
 	public:
@@ -32,8 +29,6 @@ std::ostream& operator<<(std::ostream& o, Awesome const& rhs)
 	return (o);
 }
 
-// prints x without naming a type: relies on iter deducing the right
-// instantiation from a bare template function name, e.g. iter(tab, 5, print)
 template <typename T>
 void print(T const& x)
 {

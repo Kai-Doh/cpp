@@ -6,12 +6,12 @@
 class RPN
 {
     public:
-        RPN(); // stateless: nothing to initialize
-        RPN(const RPN &other); // copy constructor
-        RPN &operator=(const RPN &other); // copy assignment
-        ~RPN(); // nothing to release
+        RPN();
+        RPN(const RPN &other);
+        RPN &operator=(const RPN &other);
+        ~RPN();
 
-        long evaluate(const std::string &expression) const; // evaluates a reverse Polish notation expression
+        long evaluate(const std::string &expression) const;
 };
 
 #endif

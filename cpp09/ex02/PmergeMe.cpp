@@ -11,15 +11,6 @@
 #include <cstddef>
 #include <sys/time.h>
 
-/*
-** Ford-Johnson (merge-insertion) sort.
-** Every element carries a globally unique `id`, assigned once when the input
-** is read and never touched again by pairing, recursion, or insertion (those
-** steps only ever copy whole Elem structs around). Each recursive call builds
-** its own throwaway id -> local-pair-index table, valid only for the elements
-** it is pairing right now, so an id keeps meaning "this exact input number"
-** no matter how many recursion levels it passes through before being placed.
-*/
 
 namespace
 {
@@ -34,10 +25,6 @@ namespace
         return (a.value < b.value);
     }
 
-    /* Jacobsthal-ordered insertion sequence: the b-indices 2..m, grouped by
-    ** Jacobsthal numbers and processed in descending order within each group.
-    ** This is what keeps every binary-search window close to its worst case
-    ** of log2(window) comparisons, the hallmark of Ford-Johnson. */
     std::vector<std::size_t> jacobsthalOrder(std::size_t m)
     {
         std::vector<std::size_t> order;
@@ -205,7 +192,6 @@ namespace
         return (result);
     }
 
-    // wall-clock reading in microseconds, used to time each container's sort
     double nowMicroseconds()
     {
         struct timeval tv;
@@ -213,7 +199,6 @@ namespace
         return (static_cast<double>(tv.tv_sec) * 1000000.0 + static_cast<double>(tv.tv_usec));
     }
 
-    // validates every argument is a plain positive integer, fills out, empty input is also an error
     bool parseArgs(int argc, char **argv, std::vector<long> &out)
     {
         for (int i = 1; i < argc; ++i)

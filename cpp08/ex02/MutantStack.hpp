@@ -4,8 +4,6 @@
 # include <stack>
 # include <deque>
 
-// a std::stack that is also iterable: it inherits everything from std::stack,
-// then exposes begin()/end() over the protected underlying container `c`
 template <typename T, typename Container = std::deque<T> >
 class MutantStack : public std::stack<T, Container>
 {
@@ -30,12 +28,12 @@ class MutantStack : public std::stack<T, Container>
         {
         }
 
-        iterator begin() // iterator to the bottom of the stack
+        iterator begin()
         {
             return (this->c.begin());
         }
 
-        iterator end() // iterator past the top of the stack
+        iterator end()
         {
             return (this->c.end());
         }

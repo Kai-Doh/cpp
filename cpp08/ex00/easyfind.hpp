@@ -4,7 +4,6 @@
 # include <algorithm>
 # include <stdexcept>
 
-// returns an iterator to the first occurrence of value in container, or throws if absent
 template <typename T>
 typename T::iterator easyfind(T &container, int value)
 {

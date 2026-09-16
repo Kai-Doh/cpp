@@ -23,14 +23,12 @@ RPN::~RPN()
 {
 }
 
-// true for a single-character +, -, * or / token
 static bool isOperator(const std::string &token)
 {
     return (token.size() == 1 && (token[0] == '+' || token[0] == '-'
             || token[0] == '*' || token[0] == '/'));
 }
 
-// classic stack-based RPN evaluation: digits get pushed, operators pop two and push the result
 long RPN::evaluate(const std::string &expression) const
 {
     std::stack<long> values;

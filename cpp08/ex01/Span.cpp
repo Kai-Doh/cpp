@@ -24,7 +24,6 @@ Span::~Span()
 {
 }
 
-// rejects the number once the Span already holds _capacity elements
 void Span::addNumber(int value)
 {
     if (_numbers.size() >= _capacity)
@@ -32,7 +31,6 @@ void Span::addNumber(int value)
     _numbers.push_back(value);
 }
 
-// sorts a copy of the numbers, then the shortest span is always between two neighbours
 int Span::shortestSpan() const
 {
     if (_numbers.size() < 2)
@@ -51,7 +49,6 @@ int Span::shortestSpan() const
     return (shortest);
 }
 
-// the longest span is simply max - min, no sorting needed
 int Span::longestSpan() const
 {
     if (_numbers.size() < 2)

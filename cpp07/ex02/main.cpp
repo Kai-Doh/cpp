@@ -6,8 +6,6 @@
 
 #define MAX_VAL 750
 
-// a small non-scalar type: owns nothing itself, but forces Array to actually run
-// a real constructor/destructor/copy-assignment, unlike a plain int
 class Fraction
 {
 	public:
@@ -28,9 +26,6 @@ std::ostream& operator<<(std::ostream& os, const Fraction& f)
 	return (os);
 }
 
-// proves Array<T> works with non-scalar types too: a class (Fraction, which has
-// its own constructor) and std::string (which owns a heap-allocated buffer, so a
-// shallow copy of Array would show up here as corruption or a double free)
 static void testComplexTypes()
 {
 	std::cout << "-- Array<std::string> --" << std::endl;
@@ -83,7 +78,6 @@ int main(int, char**)
 		numbers[i] = value;
 		mirror[i] = value;
 	}
-	// SCOPE: copies must not affect the original once they go out of scope
 	{
 		Array<int> tmp = numbers;
 		Array<int> test(tmp);

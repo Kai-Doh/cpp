@@ -115,8 +115,6 @@ bool BitcoinExchange::isValidValue(const std::string &value, double &out)
     return (true);
 }
 
-// lower_bound finds the first key >= date; an exact match is used directly,
-// otherwise step back one entry to get the closest date that is strictly earlier
 double BitcoinExchange::getRate(const std::string &date) const
 {
     std::map<std::string, double>::const_iterator it = _rates.lower_bound(date);

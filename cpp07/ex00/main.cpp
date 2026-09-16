@@ -2,8 +2,6 @@
 #include <string>
 #include "whatever.hpp"
 
-// a custom class, not just int/std::string: proves swap/min/max only ever
-// rely on the operators they actually use (<, >, =, copy), nothing scalar-specific
 class Fixed
 {
 	public:

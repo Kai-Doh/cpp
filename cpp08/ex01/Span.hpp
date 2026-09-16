@@ -6,16 +6,15 @@
 class Span
 {
     public:
-        Span(unsigned int n); // sets the maximum capacity, starts empty
-        Span(const Span &other); // copy constructor
-        Span &operator=(const Span &other); // copy assignment
-        ~Span(); // nothing to release, std::vector cleans itself up
+        Span(unsigned int n);
+        Span(const Span &other);
+        Span &operator=(const Span &other);
+        ~Span();
 
-        void addNumber(int value); // stores one number, throws once capacity is reached
-        int shortestSpan() const; // smallest gap between any two stored numbers
-        int longestSpan() const; // gap between the smallest and largest stored numbers
+        void addNumber(int value);
+        int shortestSpan() const;
+        int longestSpan() const;
 
-        // adds a whole range [first, last) in one call instead of looping addNumber() by hand
         template <typename InputIterator>
         void addNumber(InputIterator first, InputIterator last)
         {
