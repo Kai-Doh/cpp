@@ -122,7 +122,7 @@ double BitcoinExchange::getRate(const std::string &date) const
     if (it != _rates.end() && it->first == date)
         return (it->second);
     if (it == _rates.begin())
-        throw std::runtime_error("Error: bad input => " + date);
+        throw std::runtime_error("no rate available on or before this date");
     --it;
     return (it->second);
 }
@@ -190,7 +190,8 @@ void BitcoinExchange::processFile(const std::string &path) const
         }
         catch (const std::exception &e)
         {
-            std::cout << e.what() << std::endl;
+            (void)e;
+            std::cout << "Error: bad input => " << line << std::endl;
         }
     }
 }

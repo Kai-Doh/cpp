@@ -1,5 +1,6 @@
 #include "RPN.hpp"
 #include <stack>
+#include <list>
 #include <sstream>
 #include <stdexcept>
 #include <cctype>
@@ -31,7 +32,7 @@ static bool isOperator(const std::string &token)
 
 long RPN::evaluate(const std::string &expression) const
 {
-    std::stack<long> values;
+    std::stack<long, std::list<long> > values;
     std::istringstream iss(expression);
     std::string token;
 
